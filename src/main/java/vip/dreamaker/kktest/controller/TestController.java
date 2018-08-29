@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "kktest")
 public class TestController {
     @RequestMapping(value = "/test")
-    public String test(HttpServletRequest request, @RequestBody String inputStream) throws IOException {
+    public String test(HttpServletRequest request, @RequestBody String inputStream) {
         String data = request.getParameter("data");
         System.out.println("parameter data = " + data);
 //        String inputStream = "";
