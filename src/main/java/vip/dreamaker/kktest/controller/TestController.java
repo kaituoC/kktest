@@ -3,6 +3,7 @@ package vip.dreamaker.kktest.controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vip.dreamaker.kktest.ecxception.MyException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,5 +31,10 @@ public class TestController {
         String result = data + " ; " + inputStream;
         System.out.println(result);
         return result;
+    }
+
+    @RequestMapping("/json")
+    public String json() throws MyException {
+        throw new MyException("发生错误2");
     }
 }
