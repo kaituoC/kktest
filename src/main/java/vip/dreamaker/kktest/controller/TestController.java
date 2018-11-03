@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 import vip.dreamaker.kktest.ecxception.MyException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Description:
@@ -17,9 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "kktest")
 public class TestController {
     @RequestMapping(value = "/test")
-    public String test(HttpServletRequest request, @RequestBody String inputStream) {
-        String data = request.getParameter("data");
-        System.out.println("parameter data = " + data);
+//    public String test(HttpServletRequest request, @RequestBody String inputStream) {
+//    public String test(HttpServletRequest request, String data, @RequestBody String inputStream) {
+    /**
+     * @RequestBody String inputStream 这个inputStream 和 request.getInputStream() 是同一个inputStream，其中一个读取数据后，另外一个则无法读取数据。
+     */
+    public String test(HttpServletRequest request, String data) {
+        String data1 = request.getParameter("data");
+        System.out.println(data1 + ":" + data);
 //        String inputStream = "";
 //        try {
 //            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -27,10 +35,19 @@ public class TestController {
 //        } catch (Exception e) {
 //            System.out.println("ERROR: " + e.getMessage());
 //        }
-        System.out.println("inputStream = " + inputStream);
-        String result = data + " ; " + inputStream;
-        System.out.println(result);
-        return result;
+        String inputStream = "";
+//        System.out.println("inputStream = " + inputStream);
+//        String result = data + " ; " + inputStream;
+//        System.out.println(result);
+//        return result;
+        String inputStream1 = "";
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+            inputStream1 = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data1 + ":" + data + ":" + inputStream + ":" + inputStream1;
     }
 
     @RequestMapping("/json")
