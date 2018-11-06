@@ -18,7 +18,7 @@ public class FrontActuator implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        jvmPauseMonitor = new JvmPauseMonitor(1, 2);
+        jvmPauseMonitor = new JvmPauseMonitor(10, 5, "kktest");
         jvmPauseMonitor.start();
         logger.info("FrontActuator class will be execute when the project was started!");
     }
