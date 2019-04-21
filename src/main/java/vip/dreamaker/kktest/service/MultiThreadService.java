@@ -20,6 +20,7 @@ public class MultiThreadService {
 
     /**
      * Future
+     *
      * @return
      */
     public JSONObject multiCallableFutureTest() {
@@ -42,7 +43,9 @@ public class MultiThreadService {
         for (int i = 0; i < futureList.size(); i++) {
             try {
                 Future<String> f = completionService.take();
-                collect.put(f.hashCode(), f.get(TIMEOUT, TimeUnit.MILLISECONDS));
+                String res = f.get(TIMEOUT, TimeUnit.MILLISECONDS);
+                System.out.println("Future res=" + res + " run over!!!");
+                collect.put(f.hashCode(), res);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -61,6 +64,7 @@ public class MultiThreadService {
 
     /**
      * FutureTask
+     *
      * @return
      */
     public JSONObject multiCallableTest() {
@@ -84,7 +88,9 @@ public class MultiThreadService {
         taskSet.forEach(executorService::submit);
         Map<Integer, String> collect = taskSet.stream().collect(Collectors.toMap(FutureTask::hashCode, futureTask -> {
             try {
-                return futureTask.get(TIMEOUT, TimeUnit.MILLISECONDS);
+                String res = futureTask.get(TIMEOUT, TimeUnit.MILLISECONDS);
+                System.out.println("FutureTask res=" + res + " run over!!!");
+                return res;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -105,6 +111,7 @@ public class MultiThreadService {
 
     class CallableDemo implements Callable<String> {
         private String name;
+
         public CallableDemo(int i) {
             this.name = "Thread-" + String.valueOf(i);
         }
@@ -113,8 +120,11 @@ public class MultiThreadService {
         public String call() throws Exception {
             Long start = System.currentTimeMillis();
             Random random = new ThreadLocalRandom();
-            int order = (random.nextInt(10) + 1) * 1000;
-            Thread.sleep(order);
+            int loop = random.nextInt(10) + 1;
+            for (int i = 0; i < loop; i++) {
+                Thread.sleep(1000);
+                System.out.println("name=" + name + " is run,loop=" + loop + ",current=" + i);
+            }
             Long end = System.currentTimeMillis();
             long cast = end - start;
             String result = name + ",cast=" + cast;
