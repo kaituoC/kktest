@@ -24,4 +24,10 @@ public class MultiThreadController {
     public String callableTest() {
         return multiThreadService.multiCallableTest().toJSONString();
     }
+
+    @RequestMapping(value = "/callable/future/test", method = RequestMethod.GET)
+    @ResponseBody
+    public String callableFutureTest() {
+        return multiThreadService.multiCallableTest().toJSONString();
+    }
 }
