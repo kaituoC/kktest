@@ -23,4 +23,12 @@ public class Scheduler {
     public void highFrequencySchedule() {
         logger.info("highFrequencyScheduler run over!");
     }
+
+    /**
+     * 高频调度器2，10~50秒之间，每 1 秒钟执行一次
+     */
+    @Scheduled(cron = "10-50 * * * * ?")
+    public void highFrequencySchedule2() {
+        logger.info("highFrequencySchedule2 run over!");
+    }
 }
