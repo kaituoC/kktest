@@ -1,6 +1,6 @@
 package vip.dreamaker.kktest.controller;
 
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.dreamaker.kktest.ecxception.MyException;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import vip.dreamaker.kktest.service.test.TestService;
 
 /**
  * Description:
@@ -19,6 +20,10 @@ import java.io.InputStreamReader;
 @RestController
 @RequestMapping(value = "kktest")
 public class TestController {
+
+    @Autowired
+    private TestService testService;
+
     @RequestMapping(value = "/test")
 //    public String test(HttpServletRequest request, @RequestBody String inputStream) {
 //    public String test(HttpServletRequest request, String data, @RequestBody String inputStream) {
@@ -53,5 +58,10 @@ public class TestController {
     @RequestMapping("/json")
     public String json() throws MyException {
         throw new MyException("发生错误2");
+    }
+
+    @RequestMapping("/test/obj")
+    public String objTest() throws MyException {
+        return testService.objTest();
     }
 }
