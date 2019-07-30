@@ -1,6 +1,9 @@
 package vip.dreamaker.kktest.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.dreamaker.kktest.ecxception.MyException;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import vip.dreamaker.kktest.entry.vo.TestVO;
 import vip.dreamaker.kktest.service.test.TestService;
 
 /**
@@ -17,6 +21,7 @@ import vip.dreamaker.kktest.service.test.TestService;
  * Date: 2018-08-29
  * Time: 11:25
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "kktest")
 public class TestController {
@@ -63,5 +68,22 @@ public class TestController {
     @RequestMapping("/test/obj")
     public String objTest() throws MyException {
         return testService.objTest();
+    }
+
+    /**
+     * 请求参数中，如果有多个参数，会把对应参数名的参数值传递给接收请求的方法中定义的参数和对象中的属性。参数和对象属性参数名一致，则入参的值会传递给参数和对象的属性。
+     * @param guid
+     * @param userName
+     * @param testVO
+     * @return
+     */
+    @PostMapping(value = "/test/multi/args")
+    public String multiArgsTest(String guid, String userName, TestVO testVO) {
+        JSONObject result = new JSONObject();
+        result.put("guid", guid);
+        result.put("name", userName);
+        result.put("testVO", testVO);
+        log.info("[{}]", result.toJSONString());
+        return result.toJSONString();
     }
 }
