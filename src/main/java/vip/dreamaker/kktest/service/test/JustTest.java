@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author kaituo
@@ -15,6 +17,18 @@ public class JustTest {
 //    test1();
 //    test2();
     test3();
+    test4();
+  }
+
+  private static void test4() {
+    List<String> list = new LinkedList<>();
+    list.add("");
+    list.add("");
+//    list.add("*");
+    List<String> list1 = list.stream().filter(StringUtils::isNotBlank)
+        .collect(Collectors.toList());
+    System.out.println("list==[" + String.join(",", list) + "]");
+    System.out.println("list1==[" + String.join(",", list1) + "]");
   }
 
   private static void test3() {

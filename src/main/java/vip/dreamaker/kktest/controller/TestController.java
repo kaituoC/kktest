@@ -1,6 +1,7 @@
 package vip.dreamaker.kktest.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,5 +86,11 @@ public class TestController {
         result.put("testVO", testVO);
         log.info("[{}]", result.toJSONString());
         return result.toJSONString();
+    }
+
+    @RequestMapping("/foo")
+    void handleFoo(HttpServletResponse response) throws IOException {
+        response.sendRedirect("http://www.baidu.com");
+//        response.setStatus(302);
     }
 }
