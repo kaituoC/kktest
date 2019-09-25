@@ -21,7 +21,17 @@ public class JustTest {
 //    test5();
 //    test6();
 //    test7();
-    test8();
+//    test8();
+    test9();
+  }
+
+  private static void test9() {
+    String ua = "a b c b d e f g yike";
+
+    ua = ua.replace("yike", "").trim();
+
+    System.out.println(ua);
+
   }
 
   private static void test8() {
