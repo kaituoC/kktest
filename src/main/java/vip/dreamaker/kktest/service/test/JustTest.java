@@ -26,8 +26,19 @@ public class JustTest {
 //    test8();
 //    test9();
 //    test10();
-    test11();
+//    test11();
+    test12();
 
+  }
+
+  private static void test12() {
+    List<Long> list = new LinkedList<>();
+    list.add(100L);
+    list.add(200L);
+    list.add(300L);
+    Long[] array = new Long[list.size()];
+    Long[] longs = list.toArray(array);
+    System.out.println("list:" + list + "\narray:" + Arrays.toString(longs));
   }
 
   private static void test11() {
