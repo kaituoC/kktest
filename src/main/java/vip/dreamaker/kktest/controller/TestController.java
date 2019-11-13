@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import vip.dreamaker.kktest.entry.vo.TestVO;
+import vip.dreamaker.kktest.service.CacheService;
 import vip.dreamaker.kktest.service.test.TestService;
 
 /**
@@ -26,6 +27,8 @@ public class TestController {
 
   @Autowired
   private TestService testService;
+  @Autowired
+  private CacheService cacheService;
 
   @RequestMapping(value = "/test")
 //    public String test(HttpServletRequest request, @RequestBody String inputStream) {
@@ -98,5 +101,12 @@ public class TestController {
     return result.toJSONString();
   }
 
-
+  @RequestMapping(value = "/test/cache")
+  public String testCache(String dsp, String timeStr, String dspPosId) {
+    long startTs = System.currentTimeMillis();
+    log.info("dsp:{}, timeStr:{}, dspPosId:{}",dsp, timeStr, dspPosId);
+    String result = cacheService.getData(dsp, timeStr, dspPosId);
+    long endTs = System.currentTimeMillis();
+    return result + ",,cost:" + (endTs - startTs);
+  }
 }
