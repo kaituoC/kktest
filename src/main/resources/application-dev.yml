@@ -25,6 +25,6 @@ xxl:
       appname: xxl-job-executor-kktest
       ip:
       port: 9999
-      logpath: classpath:logs/xxl-job/jobhandler
+      logpath: /home/tuijian/app/adsoc-delivery/logs/xxl-job/jobhandler
       logretentiondays: 7
     accessToken:
