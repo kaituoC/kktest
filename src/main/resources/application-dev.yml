@@ -6,6 +6,14 @@ server:
 spring:
   cache:
     type: guava
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://qk057:9411/
 
 # cache-guava config
 guava:
@@ -20,11 +28,14 @@ logging:
 xxl:
   job:
     admin:
-      addresses: http://10.130.2.56:9000/xxl-job-admin/
+      addresses: http://10.130.2.1:9000/xxl-job-admin/
     executor:
       appname: xxl-job-executor-kktest
       ip:
-      port: 9999
+      port: 8887
       logpath: /home/tuijian/app/adsoc-delivery/logs/xxl-job/jobhandler
       logretentiondays: 7
     accessToken:
+#management:
+#  server:
+#    port: 8889

@@ -2,9 +2,14 @@ package vip.dreamaker.kktest.service.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import vip.dreamaker.kktest.entry.vo.AdIdReqKey;
@@ -27,8 +32,21 @@ public class JustTest {
 //    test9();
 //    test10();
 //    test11();
-    test12();
+//    test12();
+    test13();
+    ConcurrentHashMap map = new ConcurrentHashMap();
+//    Method method = Class.forName("").getMethod("", String.class);
+//    method.invoke(null, "a");
 
+  }
+
+  private static void test13() {
+//    String adCreateTime = "2019-10-18 20:29:02";
+    String adCreateTime = "201910-18 20:29:02";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime localDateTime = LocalDateTime.parse(adCreateTime, formatter);
+    long cloneTs = localDateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+    System.out.println(cloneTs);
   }
 
   private static void test12() {
