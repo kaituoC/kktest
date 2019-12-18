@@ -27,7 +27,7 @@ public class SpringAOP {
      * 第三个*号：表示方法名，*号表示所有的方法
      * 后面括弧里面表示方法的参数，两个句点表示任何参数
      */
-    @Pointcut("execution(* vip.dreamaker.kktest.controller..*.*(..))")
+    @Pointcut("execution(* vip.dreamaker.kktest.controller.*.*(..))")
     public void executionService() {
 
     }

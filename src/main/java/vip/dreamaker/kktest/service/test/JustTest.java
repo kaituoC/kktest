@@ -1,17 +1,23 @@
 package vip.dreamaker.kktest.service.test;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import vip.dreamaker.kktest.entry.vo.AdIdReqKey;
+import vip.dreamaker.kktest.entry.vo.TestVO;
 
 /**
  * @author kaituo
@@ -20,7 +26,14 @@ import vip.dreamaker.kktest.entry.vo.AdIdReqKey;
 public class JustTest {
 
   public static void main(String[] args) throws Exception {
-    test16();
+    test22();
+//    test21();
+//    test21();
+//    test20();
+//    test19();
+//    test18();
+//    test17();
+//    test16();
 //    test1();
 //    test2();
 //    test3();
@@ -43,6 +56,103 @@ public class JustTest {
 //    Method method = Class.forName("").getMethod("", String.class);
 //    method.invoke(null, "a");
 
+  }
+
+  private static void test22() {
+    Integer num = new Integer(129);
+    for (int i = 0; i < 100; i++) {
+      increment(num);
+    }
+    System.out.println(num);
+  }
+
+  private static void increment(Integer num) {
+    num = num + new Integer(1);
+  }
+
+  private static Cache<String, AtomicLong> session = CacheBuilder.newBuilder()
+      .maximumSize(5000)
+      .concurrencyLevel(100)
+      .expireAfterAccess(60, TimeUnit.SECONDS)
+      .initialCapacity(100)
+      .build();
+  private static void test21() {
+
+    int interval = 2000;
+    long current = System.currentTimeMillis();
+    String key = "a";
+    AtomicLong ts = null;
+    try {
+      ts = session.get(key, () -> new AtomicLong(System.currentTimeMillis()));
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
+    assert ts != null;
+    long cts = ts.updateAndGet(x -> ((current - x) > interval) ? current : x);
+    System.out.println("cts:\t" + cts + System.lineSeparator() + "cur:\t" + current);
+    if (current > cts) {
+      System.out.println("skip:\t The ad bit has been freq");
+    }
+  }
+
+  private static void test20() {
+    List<Integer> list = Lists.newArrayList(1, 2, 5, 10, 15, 20, 30);
+    List<String> collect = list.stream().filter(x -> x > 5).map(x -> {
+      if (x < 10) {
+        return "a";
+      } else if (x < 20) {
+        return "b";
+      } else if (x < 30) {
+        return "c";
+      }
+      return "d";
+    }).collect(Collectors.toList());
+
+    System.out
+        .println(JSON.toJSONString(list) + System.lineSeparator() + JSON.toJSONString(collect));
+  }
+
+  private static void test19() throws Exception {
+    int upperLimit = 100;
+    int current = 59;
+    float percent = ((float) (upperLimit - current)) / upperLimit;
+    float percent1 = (upperLimit - current) / upperLimit;
+    System.out.println(percent + System.lineSeparator() + percent1);
+    throw new Exception("exceptin");
+  }
+
+  private static void test18() {
+    String ip = "10.240.2.1";
+    String ipC = ip.substring(0, ip.lastIndexOf(".") + 1);
+    System.out.println(ipC);
+  }
+
+  private static void test17() {
+    List<TestVO> list = new LinkedList<>();
+    List<TestVO> result = new LinkedList<>();
+    for (int i = 0; i < 8; i++) {
+      String strValue = String.valueOf(i);
+      list.add(new TestVO(strValue, i, strValue));
+    }
+    System.out.printf("list:%s" + System.lineSeparator(), JSON.toJSONString(list));
+    int reqNum = 3;
+    int size = list.size();
+    if (size > reqNum) {
+      TestVO testVO = list.get(0);
+      List<TestVO> emptyList = list.subList(reqNum, size);
+      mixAd(testVO, emptyList);
+      testVO.setName("mix");
+      result.addAll(list.subList(0, reqNum));
+    } else {
+      result.addAll(list);
+    }
+    System.out.printf("result:%s", JSON.toJSONString(result));
+  }
+
+  private static void mixAd(TestVO testVO, List<TestVO> emptyList) {
+    for (TestVO vo : emptyList) {
+      testVO.setAddr(testVO.getAddr() + "," + vo.getAddr());
+    }
   }
 
   private static void test16() throws InterruptedException {

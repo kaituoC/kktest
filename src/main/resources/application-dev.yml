@@ -32,10 +32,20 @@ xxl:
     executor:
       appname: xxl-job-executor-kktest
       ip:
-      port: 8887
+      port: 8001
       logpath: /home/tuijian/app/adsoc-delivery/logs/xxl-job/jobhandler
       logretentiondays: 7
     accessToken:
 #management:
 #  server:
 #    port: 8889
+# 放开Actuator Web REST 端点,否则访问不到
+management:
+  server:
+    port: 8889
+  endpoints:
+    web:
+      base-path: /actuator  # 访问根路径
+      exposure:
+        include: "*"
+    enabled-by-default: true
