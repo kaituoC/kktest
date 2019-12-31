@@ -26,7 +26,9 @@ import vip.dreamaker.kktest.entry.vo.TestVO;
 public class JustTest {
 
   public static void main(String[] args) throws Exception {
-    test22();
+    test24();
+//    test23();
+//    test22();
 //    test21();
 //    test21();
 //    test20();
@@ -58,12 +60,35 @@ public class JustTest {
 
   }
 
+  private static void test24() {
+    System.out.println(Math.abs(-1 % 5));
+    System.out.println(Math.abs(-3 % 5));
+    System.out.println(Math.abs(-5 % 5));
+    System.out.println(Math.abs(-6 % 5));
+  }
+
+  private static void test23() {
+    Integer numa = new Integer(2561);
+    Integer numb = new Integer(2563);
+    int a = numb;
+    swatch(numa, numb);
+    System.out.println("numa:" + numa + ", numb:" + numb);
+  }
+
+  private static Integer numa = new Integer(2560);
+  private static Integer numb = new Integer(2562);
+
+  private static void swatch(Integer a, Integer b) {
+    Integer tmp = a;
+    a = b;
+    b = tmp;
+  }
+
   private static void test22() {
-    Integer num = new Integer(129);
     for (int i = 0; i < 100; i++) {
-      increment(num);
+      increment(numb);
     }
-    System.out.println(num);
+    System.out.println(numb);
   }
 
   private static void increment(Integer num) {
@@ -76,6 +101,7 @@ public class JustTest {
       .expireAfterAccess(60, TimeUnit.SECONDS)
       .initialCapacity(100)
       .build();
+
   private static void test21() {
 
     int interval = 2000;
