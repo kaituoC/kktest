@@ -5,7 +5,9 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -41,9 +43,10 @@ public class SpringAOP {
     String requestId = String.valueOf(UUID.randomUUID());
     MDC.put("requestId", requestId);
     String className = joinPoint.getTarget().getClass().getSimpleName();
+    String simpleName = joinPoint.getSignature().getDeclaringType().getSimpleName();
     String methodName = joinPoint.getSignature().getName();
-    log.info("=====>@Before:className:[{}],methodName:[{}],请求参数为:[{}]", className, methodName,
-        Arrays.toString(joinPoint.getArgs()));
+    log.info("=====>@Before:className:[{}],simpleName:[{}],methodName:[{}],signature:[{}],请求参数为:[{}]", className,
+        simpleName, methodName, joinPoint.getSignature().toString(), Arrays.toString(joinPoint.getArgs()));
   }
 
   /**
@@ -76,7 +79,7 @@ public class SpringAOP {
       String methodName = joinPoint.getSignature().getName();
       obj = joinPoint.proceed();
     } catch (Throwable e) {
-      log.error("=====>统计某方法执行耗时环绕通知出错", e);
+      log.error("=====>@Around:统计某方法执行耗时环绕通知出错", e);
       throw e;
     } finally {
 
@@ -85,9 +88,18 @@ public class SpringAOP {
       //MethodSignature signature = (MethodSignature) joinPoint.getSignature();
       //String methodName = signature.getDeclaringTypeName() + "." + signature.getName();
       // 打印耗时的信息
-      log.info("=====>处理本次请求共耗时：{} ms", endTime - startTime);
+      log.info("=====>@Around:处理本次请求共耗时：{} ms", endTime - startTime);
     }
     return obj;
   }
 
+  @After(value = "executionService()")
+  public void after(JoinPoint joinPoint) {
+    log.info("=====>@After");
+  }
+
+  @AfterThrowing(value = "executionService()", throwing = "ex")
+  public void afterThrowing(JoinPoint joinPoint, Exception ex) {
+    log.info("=====>@AfterThrowing");
+  }
 }
