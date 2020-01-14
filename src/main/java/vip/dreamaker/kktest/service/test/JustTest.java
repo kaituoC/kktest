@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
+
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +15,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import vip.dreamaker.kktest.entry.vo.AdIdReqKey;
@@ -26,7 +29,8 @@ import vip.dreamaker.kktest.entry.vo.TestVO;
 public class JustTest {
 
   public static void main(String[] args) throws Exception {
-    test24();
+    test25();
+//    test24();
 //    test23();
 //    test22();
 //    test21();
@@ -58,6 +62,39 @@ public class JustTest {
 //    Method method = Class.forName("").getMethod("", String.class);
 //    method.invoke(null, "a");
 
+  }
+
+  private static void test25() {
+    double weight = 2;
+    double upperCtr = 0.45D;
+    double onemin = 0.3612D;
+    double fivemin = 0.3862D;
+    double scoreOne = onemin / upperCtr;
+    double scoreOne1 = updateWeight(scoreOne);
+    double scoreFive = fivemin / upperCtr;
+    double scoreFive1 = updateWeight(scoreFive);
+    double score = ((scoreOne + scoreFive) * upperCtr * weight) / 2;
+    double score1 = ((scoreOne1 + scoreFive1) * upperCtr * weight) / 2;
+    System.out.println("scoreOne:" + scoreOne + "\tscoreFive:" + scoreFive + "\tscore:" + score
+        + System.lineSeparator()
+        + "scoreOne1:" + scoreOne1 + "\tscoreFive1:" + scoreFive1 + "\tscore1:" + score1);
+    for (int i = 0; i < 20; i++) {
+      System.out.println(RandomUtils.nextFloat(0, 1) < score1);
+    }
+
+//        for (double i = 0.0; i < 1.9; i += 0.01) {
+//            double v = updateWeight(i);
+//            System.out.println("i=" + i + "\tv=" + v);
+//        }
+  }
+
+  private static double updateWeight(double score) {
+    if (score > 1.08) {
+      score = 2 - Math.min(score, 1.5D);
+    } else if (score < 0.92) {
+      score = 2 - Math.max(0.6D, score);
+    }
+    return score;
   }
 
   private static void test24() {

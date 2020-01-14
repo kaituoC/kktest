@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import vip.dreamaker.kktest.entry.vo.TestVO;
 import vip.dreamaker.kktest.service.CacheService;
 import vip.dreamaker.kktest.service.test.TestService;
+import vip.dreamaker.kktest.utils.IpUtil;
 
 /**
  * Description: User: kaituo Date: 2018-08-29 Time: 11:25
@@ -85,10 +86,19 @@ public class TestController {
   }
 
   @RequestMapping("/foo")
-  void handleFoo(HttpServletResponse response) throws IOException {
-    response.sendRedirect("http://www.baidu.com");
-//        response.setStatus(302);
+  void handleFoo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.sendRedirect("http://localhost:8888/kktest/bar");
+    response.setStatus(302);
+    log.info("ip:[{}]", IpUtil.getIp(request));
   }
+
+  @RequestMapping("/bar")
+  void handleBar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.sendRedirect("http://www.baidu.com");
+    response.setStatus(302);
+    log.info("ip:[{}]", IpUtil.getIp(request));
+  }
+
   @RequestMapping("/test/ua")
   public String test(HttpServletRequest request) {
     JSONObject result = new JSONObject();
@@ -104,7 +114,7 @@ public class TestController {
   @RequestMapping(value = "/test/cache")
   public String testCache(String dsp, String timeStr, String dspPosId) {
     long startTs = System.currentTimeMillis();
-    log.info("dsp:{}, timeStr:{}, dspPosId:{}",dsp, timeStr, dspPosId);
+    log.info("dsp:{}, timeStr:{}, dspPosId:{}", dsp, timeStr, dspPosId);
     String result = cacheService.getData(dsp, timeStr, dspPosId);
     long endTs = System.currentTimeMillis();
     return result + ",,cost:" + (endTs - startTs);
