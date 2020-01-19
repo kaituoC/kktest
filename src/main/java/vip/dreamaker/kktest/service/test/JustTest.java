@@ -29,7 +29,8 @@ import vip.dreamaker.kktest.entry.vo.TestVO;
 public class JustTest {
 
   public static void main(String[] args) throws Exception {
-    test25();
+    test26();
+//    test25();
 //    test24();
 //    test23();
 //    test22();
@@ -62,6 +63,15 @@ public class JustTest {
 //    Method method = Class.forName("").getMethod("", String.class);
 //    method.invoke(null, "a");
 
+  }
+
+  private static void test26() {
+    String url = "http://h5.tianlan.online/download?ip=127.0.0.1&ua=useragent&rid=__rid__&aid=__aid__&dp=__dp__&uid=__uid__";
+    String newUrl = url.replace("__rid__", "rid123")
+        .replace("__aid__", "aid123")
+        .replace("__dp__", "dp123")
+        .replace("__uid__", "uid123");
+    System.out.println(newUrl);
   }
 
   private static void test25() {
