@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -29,32 +30,7 @@ import vip.dreamaker.kktest.entry.vo.TestVO;
 public class JustTest {
 
   public static void main(String[] args) throws Exception {
-    test26();
-//    test25();
-//    test24();
-//    test23();
-//    test22();
-//    test21();
-//    test21();
-//    test20();
-//    test19();
-//    test18();
-//    test17();
-//    test16();
-//    test1();
-//    test2();
-//    test3();
-//    test4();
-//    test5();
-//    test6();
-//    test7();
-//    test8();
-//    test9();
-//    test10();
-//    test11();
-//    test12();
-//    test13();
-//    System.out.println(test14("00.20.1.0"));
+    test27();
 
 //    String s = "http://test.api.musfa.com:8080/callback?channelid=10018&media=__MEDIA__&imei=__IMEI__&ip=__IP__&model=__MODEL__&macAddress=__MACADDRESS__&network=__NETWORK__&apiLevel=__APILEVEL__&osid=__OSID__&imsi=__IMSI__&mcc=__MCC__&mno=__MNO__&dpi=__DPI__&bssid=__BSSID__&infoLa=__INFOLA__&infoCi=__INFOCI__&resolution=__RESOLUTION__&ovr=__OVR__&report=finishDown&ext=1eA%2BhgE1strjthstxRkH81UjESy2HhWscLYaHbK%2FCM5JDQZ1Y%2FmDLtgV6dbL2CR6qkmzToF0R6DJRZ%2Bx1kM%2FS%2FO6p7CulXDqnZk2vcTshsx%2FyHwNIaGpxQsXaOgFahqvzyM83w2IHIkvwrCGaV0sSxdRYY6IxzeEB%2BPwoOc9CTCKHObIHaDJzNAugH79hYdXCwmaRWQ%2FWIiDvNVb5dNChZIcbFCQvDkkolcrMt%2BqG9ZLnlZ6RuwXE%2Bv344%2FoMi5u&mt=vxBSz6%2Br7f8BJeztqtuQR7R%2B9ZhndBek7Z7wCtvcOeAD7FEucuPXslTjrbk%2F7q055Hz2bJzDc%2FKNfJ0%2FgGwcdkLNlpuWtTP9igzh8OuFui53b9EhXx3Ou1p3z9T%2BNucJw9u12p4AM0R7LAlHtk%2B3IYiAHD6Nmruc175Xvr47M%2B1pKVFOsxCw98Yo%2BpDH4YtO%2BELbuUtmokNdZTHHrVyrdxom534oU456Mq8KQ3IgrNNJdxsgvrlRMaZm1skzA6gMrgzdbRwui7dCWI4ut8HJchXawpU6wM24yYZkHmShfPolJ8pVhX3OFjVVKftWIwBfRp4eOvjDXLYo%2FuCIQLLaInjSvGcNI%2FYb3gXx5KZITYbyu5xFru32jrpFzt%2BjSYdQHw1nB0tMLclOcsJeFJsgyG1l%2FSzp3rtZvK8Fzdxwwwr%2B8asApRtnIN1BEbLkhOBjhxlsfynd8npMnI7s%2FdAwUD6vpl4O%2B08NgwSYdJjQlvK2KxOic1PXxQ6GoILWsp69GX9%2FpI4gADsZV5OIs33cxq6ni0xTlb5SIzd%2Fsxo%2F4PMHXmzaoSzyDIFC9QE8nM7Xpa1Oao1cUJxoLxeyUw2sdhZQj5Y2jlBeM%2B%2BvyRyauizEAv4x8y6Wj14si3zdjt7nlHr4dGjqNUlYAL%2FiAzApHs9yD2Qe7kxdToUATyfw%2FI4IDSah8hE55JeM0LLbM6FTbk%2BGl2WoclEZI%2BPfUtessBJ8UMl6On9efLLOxN8aOWX1IucLtpMbCAnnt3O8gq7lzthJ1fe6ZupeEyx4vZVaskEgwBpdFNNhdgV%2B6CLKk0R63K%2FrQDbL5eQ%2BDztGaQ3qLhNgVYls68WIgzZx5QKou8o4lM5o%2F0goPAPhwR%2Byz1%2F0x4W6qQeNnGGI5JYo9Bz9gVYpP%2FyYfv3HyXV3x6CLe9HcXAMXZcti5bxnqaFGd%2BxkQvmndq9uLdKZGI3GUvTBiLmzod4WNZy1tL82wy1J9Q%3D%3D_e44b9e8808d942888722b053ac92bdd7";
 //    String s1 = test15(s);
@@ -62,6 +38,18 @@ public class JustTest {
 
 //    Method method = Class.forName("").getMethod("", String.class);
 //    method.invoke(null, "a");
+
+  }
+
+  private static void test27() {
+    String reqKey = null;
+    String adId = "aa";
+    String dspCode = " aaa ";
+    StringJoiner sj = new StringJoiner("--");
+    sj.add(StringUtils.trimToEmpty(reqKey))
+        .add(StringUtils.trimToEmpty(adId))
+        .add(StringUtils.defaultString(StringUtils.trim(dspCode)));
+    System.out.println(sj.toString());
 
   }
 
