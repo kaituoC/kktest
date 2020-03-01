@@ -1,0 +1,51 @@
+# web port
+server:
+  port: 8888
+
+# cache config
+spring:
+  cache:
+    type: guava
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://qk057:9411/
+
+# cache-guava config
+guava:
+  expire:
+    time: 20
+
+# log config
+logging:
+  config: classpath:logback-dev.xml
+
+### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
+xxl:
+  job:
+    admin:
+      addresses: http://10.130.2.1:9000/xxl-job-admin/
+    executor:
+      appname: xxl-job-executor-kktest
+      ip:
+      port: 8001
+      logpath: /home/tuijian/app/adsoc-delivery/logs/xxl-job/jobhandler
+      logretentiondays: 7
+    accessToken:
+#management:
+#  server:
+#    port: 8889
+# 放开Actuator Web REST 端点,否则访问不到
+management:
+  server:
+    port: 8889
+  endpoints:
+    web:
+      base-path: /actuator  # 访问根路径
+      exposure:
+        include: "*"
+    enabled-by-default: true

@@ -1,0 +1,30 @@
+# web port
+server:
+  port: 8888
+
+# cache config
+spring:
+  cache:
+    type: guava
+
+# cache-guava config
+guava:
+  expire:
+    time: 20
+
+# log config
+logging:
+  config: classpath:logback-prod.xml
+
+### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
+xxl:
+  job:
+    admin:
+      addresses: http://10.130.2.56:9000/xxl-job-admin/
+    executor:
+      appname: xxl-job-executor-kktest
+      ip:
+      port: 9999
+      logpath: /home/tuijian/app/adsoc-delivery/logs/xxl-job/jobhandler
+      logretentiondays: 7
+    accessToken:
