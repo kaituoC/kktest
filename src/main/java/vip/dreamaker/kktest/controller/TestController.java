@@ -1,10 +1,12 @@
 package vip.dreamaker.kktest.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import java.util.Enumeration;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.dreamaker.kktest.ecxception.MyException;
@@ -30,6 +32,24 @@ public class TestController {
   private TestService testService;
   @Autowired
   private CacheService cacheService;
+
+  @RequestMapping(value = "/return/request")
+  public String returnRequest(HttpServletRequest request, @RequestBody String body) {
+    JSONObject result = new JSONObject();
+    Enumeration<String> headerNames = request.getHeaderNames();
+    JSONObject headers = new JSONObject();
+    while (headerNames.hasMoreElements()) {
+      String headerKey = headerNames.nextElement();
+      String value = request.getHeader(headerKey);
+      headers.put(headerKey, value);
+    }
+    result.put("headers", headers);
+    result.put("body", body);
+    String resultStr = result.toJSONString();
+    log.info("result:[{}]", resultStr);
+    return resultStr;
+  }
+
 
   @RequestMapping(value = "/test")
 //    public String test(HttpServletRequest request, @RequestBody String inputStream) {
