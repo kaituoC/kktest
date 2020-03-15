@@ -1,5 +1,6 @@
 package vip.dreamaker.kktest.thread;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -16,6 +17,8 @@ public class Test {
             int index = getIndexNew(a, i);
             System.out.println("element=" + i + ";index=" + index);
         }
+        ArrayList<Integer> list = new ArrayList<>();
+//        list.retainAll()
     }
 
     public static int getIndex(int[] a, int e) {
