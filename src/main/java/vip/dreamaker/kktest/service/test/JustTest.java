@@ -47,7 +47,7 @@ public class JustTest {
     System.out.println(a);
   }
 
-  private static void test29() {
+  private static void test32() {
     ok:
     for (int i = 0; i < 10; i++) {
       for (int j = 0; j < 10; j++) {
@@ -61,7 +61,7 @@ public class JustTest {
     System.out.println("over");
   }
 
-  private static void test28() {
+  private static void test31() {
     List<String> res = new LinkedList<>();
     res.add("a");
     res.add("aa");
@@ -104,7 +104,7 @@ public class JustTest {
     System.out.println("over,status:" + status);
   }
 
-  private static void test27() {
+  private static void test30() {
 //    String a = "aaaa_bbb_ccc_ddd";
     String a = "aaaa_bbb_ccc";
     String[] split = a.split("_");
