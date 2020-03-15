@@ -15,6 +15,8 @@ import java.util.StringJoiner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomUtils;
@@ -117,6 +119,40 @@ public class JustTest {
     }
 
     System.out.println("adid:" + adid);
+  }
+
+  private static void test29() {
+    for (int i = 0; i < 800; i++) {
+//      String str = String.valueOf(365000 + i);
+//      String pattern = "365[125](0[1-9]|[1-4][0-9]|50)";
+      String str = String.valueOf(363000 + i);
+      String pattern = "363[257](0[1-9]|[1-4][0-9]|50)";
+
+      Pattern r = Pattern.compile(pattern);
+      Matcher m = r.matcher(str);
+      boolean matches = m.matches();
+      if (matches) {
+        System.out.println(str + "===" + matches);
+      }
+    }
+  }
+
+  private static void test28() {
+    String a = "";
+    String b = "b";
+    System.out.println(StringUtils.contains(a, b));
+  }
+
+  private static void test27() {
+    String reqKey = null;
+    String adId = "aa";
+    String dspCode = " aaa ";
+    StringJoiner sj = new StringJoiner("--");
+    sj.add(StringUtils.trimToEmpty(reqKey))
+        .add(StringUtils.trimToEmpty(adId))
+        .add(StringUtils.defaultString(StringUtils.trim(dspCode)));
+    System.out.println(sj.toString());
+
   }
 
   private static void test26() {
