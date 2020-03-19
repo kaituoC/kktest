@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
-import javax.jnlp.ClipboardService;
 
 /**
  * <p>Copyright (C) 2017-2019 THL A29 Limited, a Qknode company. All rights reserved.
