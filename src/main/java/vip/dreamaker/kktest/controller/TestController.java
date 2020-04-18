@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import vip.dreamaker.kktest.ecxception.MyException;
 
@@ -138,5 +140,12 @@ public class TestController {
     String result = cacheService.getData(dsp, timeStr, dspPosId);
     long endTs = System.currentTimeMillis();
     return result + ",,cost:" + (endTs - startTs);
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/test/receive/set", method = RequestMethod.POST)
+  public String testReceiveSet(HttpServletRequest request, String appTypes) {
+    log.info("appTypes:[{}]", appTypes);
+    return appTypes;
   }
 }
